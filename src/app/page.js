@@ -17,7 +17,12 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Drawercomponents from '@/component/Drawer/index'
+import dynamic from 'next/dynamic';
+const Drawercomponents = dynamic(() => import('@/component/Drawer/index'), {
+  ssr: false, // Set ssr to false to ensure the component is only imported on the client side
+  loading: () =>  <p>Loading...</p>,
+  onError: (error) => <p>Error Loading Component: {error.message}</p>
+});
 
 const drawerWidth = 240;
 
