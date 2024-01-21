@@ -2,15 +2,19 @@ import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "./common/navbar/Navbar";
 import { GoHome } from "react-icons/go";
 import { AiFillFileText, AiFillTags ,AiTwotoneWallet,AiOutlineUsergroupAdd,AiFillDollarCircle, AiFillExclamationCircle, AiOutlineExclamation } from "react-icons/ai";
+import Navlinks from "./common/navlinks/Navlinks";
 
 
 function App() {
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col">
+      <div className="drawer-content flex flex-col bg-[#fcfcfc]">
         {/* Page content here */}
         <Navbar/>
+        <div className=" md:hidden my-3">
+          <Navlinks/>
+        </div>
         <Outlet/>
       </div>
       <div className="drawer-side">

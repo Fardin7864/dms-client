@@ -1,5 +1,74 @@
+import {
+  AiFillDollarCircle,
+  AiFillExclamationCircle,
+  AiFillFileText,
+  AiFillTags,
+  AiOutlineExclamation,
+  AiOutlineUsergroupAdd,
+  AiTwotoneWallet,
+} from "react-icons/ai";
+import { GoHome } from "react-icons/go";
+import { NavLink } from "react-router-dom";
+import Navlinks from "../navlinks/Navlinks";
 
 const Navbar = () => {
+  const navLink = (
+    <>
+      {" "}
+      <li>
+        <NavLink to={"/"}>
+          <GoHome className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Dashboard</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/sell"}>
+          <AiFillTags className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Sell</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/return"}>
+          <AiOutlineExclamation className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Return</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/orders"}>
+          <AiFillFileText className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Orders</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/stock"}>
+          <AiTwotoneWallet className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Stock</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/damages"}>
+          <AiFillExclamationCircle className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Damages</span>
+        </NavLink>
+      </li>
+      <li className="flex flex-row items-center">
+        <h4 className=" text-xl font-bold">EMPLOYEES</h4>
+      </li>
+      <li>
+        <NavLink to={"/empployee"}>
+          <AiOutlineUsergroupAdd className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Epmployee List</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/salary"}>
+          <AiFillDollarCircle className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Salary Sheet</span>
+        </NavLink>
+      </li>
+    </>
+  );
+
   return (
     <div className="navbar bg-base-100 lg:justify-between lg:px-10">
       <div className="navbar-start lg:hidden ">
@@ -24,20 +93,14 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
-              <a>Homepage</a>
-            </li>
-            <li>
-              <a>Portfolio</a>
-            </li>
-            <li>
-              <a>About</a>
-            </li>
+            {navLink}
           </ul>
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <div className="hidden md:block">
+        <Navlinks/>
+        </div>
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">
