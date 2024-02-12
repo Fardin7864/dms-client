@@ -11,7 +11,7 @@ const Navlinks = () => {
                 ? "pending"
                 : isActive
                 ? "shadow-md p-2 rounded-lg text-[#910A67]"
-                : " hover:text-[#910A67] hover:shadow-md p-2 rounded-lg"
+                : " text-gray-500 hover:text-[#910A67] hover:shadow-md p-2 rounded-lg"
             }
           >
             <span className=" md:text-md font-semibold text-sm">Dashboard</span>
@@ -25,10 +25,10 @@ const Navlinks = () => {
                 ? "pending"
                 : isActive
                 ? "shadow-md p-2 rounded-lg"
-                : "hover:text-[#910A67] hover:shadow-md p-2 rounded-lg"
+                : "text-gray-500 hover:text-[#910A67] hover:shadow-md p-2 rounded-lg"
             }
           >
-            <span className="text-sm md:text-md font-semibold text-gray-500 hover:text-[#910A67]">
+            <span className="text-sm md:text-md font-semibold ">
               Delivery
             </span>
           </NavLink>
@@ -41,11 +41,11 @@ const Navlinks = () => {
                 ? "pending"
                 : isActive
                 ? "shadow-md p-2 rounded-lg"
-                : " hover:shadow-md p-2 rounded-lg"
+                : " hover:shadow-md p-2 rounded-lg text-gray-500 hover:text-[#910A67]"
             }
           >
-            <span className="text-sm md:text-md font-semibold text-gray-500 hover:text-[#910A67]">
-               Return
+            <span className="text-sm md:text-md font-semibold ">
+              Take Return
             </span>
           </NavLink>
         </li>
@@ -57,10 +57,10 @@ const Navlinks = () => {
                 ? "pending"
                 : isActive
                 ? "shadow-md p-2 rounded-lg"
-                : "hover:text-[#910A67] hover:shadow-md p-2 rounded-lg"
+                : "text-gray-500 hover:text-[#910A67] hover:shadow-md p-2 rounded-lg"
             }
           >
-            <span className="text-sm md:text-md font-semibold text-gray-500 hover:text-[#910A67]">
+            <span className="text-sm md:text-md font-semibold ">
                Order
             </span>
           </NavLink>

@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "./common/navbar/Navbar";
 import { GoHome } from "react-icons/go";
-import { AiFillFileText, AiFillTags ,AiTwotoneWallet,AiOutlineUsergroupAdd,AiFillDollarCircle, AiFillExclamationCircle, AiOutlineExclamation } from "react-icons/ai";
+import { AiFillFileText, AiFillTags ,AiTwotoneWallet,AiOutlineUsergroupAdd,AiFillDollarCircle, AiFillExclamationCircle, AiOutlineExclamation, AiFillDiff, AiFillGolden,AiFillFunnelPlot,AiFillCopyrightCircle  } from "react-icons/ai";
 import Navlinks from "./common/navlinks/Navlinks";
 
 
@@ -42,7 +42,20 @@ function App() {
             <NavLink to={'/stock'}><AiTwotoneWallet  className=" text-2xl font-bold"/><span className=" text-md font-semibold">Stock</span></NavLink>
           </li>
           <li>
+            <NavLink to={'/add-stock'}><AiFillDiff  className=" text-2xl font-bold"/><span className=" text-md font-semibold">Add Stock</span></NavLink>
+          </li>
+          
+          <li>
             <NavLink to={'/damages'}><AiFillExclamationCircle  className=" text-2xl font-bold"/><span className=" text-md font-semibold">Damages</span></NavLink>
+          </li>
+          <li>
+            <NavLink to={'/products'}><AiFillGolden   className=" text-2xl font-bold"/><span className=" text-md font-semibold">Products</span></NavLink>
+          </li>
+          <li>
+            <NavLink to={'/categorys'}><AiFillFunnelPlot    className=" text-2xl font-bold"/><span className=" text-md font-semibold">Categorys</span></NavLink>
+          </li>
+          <li>
+            <NavLink to={'/companys'}><AiFillCopyrightCircle     className=" text-2xl font-bold"/><span className=" text-md font-semibold">Companys</span></NavLink>
           </li>
           <li className="flex flex-row items-center"><h4 className=" text-xl font-bold">EMPLOYEES</h4></li>
           <li>

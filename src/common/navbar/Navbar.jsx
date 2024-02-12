@@ -1,7 +1,11 @@
 import {
+  AiFillCopyrightCircle,
+  AiFillDiff,
   AiFillDollarCircle,
   AiFillExclamationCircle,
   AiFillFileText,
+  AiFillFunnelPlot,
+  AiFillGolden,
   AiFillTags,
   AiOutlineExclamation,
   AiOutlineUsergroupAdd,
@@ -46,9 +50,33 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
+        <NavLink to={"/add-stock"}>
+          <AiFillDiff className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Add Stock</span>
+        </NavLink>
+      </li>
+      <li>
         <NavLink to={"/damages"}>
           <AiFillExclamationCircle className=" text-2xl font-bold" />
           <span className=" text-md font-semibold">Damages</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/products"}>
+          <AiFillGolden className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Products</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/categorys"}>
+          <AiFillFunnelPlot className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Categorys</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/companys"}>
+          <AiFillCopyrightCircle className=" text-2xl font-bold" />
+          <span className=" text-md font-semibold">Companys</span>
         </NavLink>
       </li>
       <li className="flex flex-row items-center">
