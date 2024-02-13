@@ -3,10 +3,12 @@ import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import Swal from "sweetalert2";
 import useAxiosPrivet from "../../hooks/useAxiosPrivet/useAxiosPrivet";
+import { useState } from "react";
 
 const Companys = () => {
   const axiosPublic = useAxiosPublic();
   const axiosPrivet = useAxiosPrivet();
+  const [isShow, setIshshow] = useState(false);
 
   const { isPending, error, data, isFetching, refetch  } = useQuery({
     queryKey: ["companys"],
@@ -48,7 +50,13 @@ const hadndleDelete = (id) => {
  }
 
   return (
-    <div>
+    <>
+    {
+      !isShow ? (<div className=" px-5 my-5">
+      <button onClick={() => setIshshow(true)} className=" btn btn-md btn-primary">Add Company</button>
+    </div>) : ""
+    }
+
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           {/* head */}
@@ -80,7 +88,7 @@ const hadndleDelete = (id) => {
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 };
 
