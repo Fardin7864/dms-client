@@ -4,19 +4,19 @@ import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
 import useAxiosPrivet from "../../hooks/useAxiosPrivet/useAxiosPrivet";
 import { useEffect, useState } from "react";
 
-const Companys = () => {
+const Categorys = () => {
   const axiosPublic = useAxiosPublic();
   const axiosPrivet = useAxiosPrivet();
-  const [companys, setCompanys] = useState();
+  const [categorys, setCategorys] = useState();
   const [isShow, setIsShow] = useState(false);
+  const [category, setCategory] = useState({categoryName: ''});
   const [formData, setFormData] = useState({
-    companyName: "",
-    group: "", // Fixed typo here, should be 'group' instead of 'groupe'
+    categoryName: "",
   });
 
   useEffect(() => {
-    axiosPublic.get("company").then((res) => setCompanys(res.data.data));
-  }, [axiosPublic, companys]);
+    axiosPublic.get("category").then((res) => setCategorys(res.data.data));
+  }, [axiosPublic,axiosPrivet, categorys]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -30,7 +30,7 @@ const Companys = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosPrivet
-          .delete(`company/delete-company/${id}`)
+          .delete(`category/delete/${id}`)
           .then(() => {
             Swal.fire({
               title: "Deleted!",
@@ -39,10 +39,10 @@ const Companys = () => {
             });
           })
           .catch((error) => {
-            console.error("Error deleting company:", error);
+            console.error("Error deleting category:", error);
             Swal.fire({
               title: "Error!",
-              text: "An error occurred while deleting the company.",
+              text: "An error occurred while deleting the category.",
               icon: "error",
             });
           });
@@ -54,23 +54,51 @@ const Companys = () => {
     e.preventDefault();
     // Access form data from 'formData' state
     try {
-      if (formData.companyName === "" || formData.group === "")
+      if (formData.categoryName === "" )
       { return  Swal.fire({
           position: "top-end",
           icon: "error",
-          title: "Company name and group must input!",
+          title: "Category name and group must input!",
           showConfirmButton: false,
           timer: 1500,
         });}
+        // console.log("in try block", category.categoryName._id)
+      if(category) {
+        const updatedCategory = await axiosPrivet.patch(`category/update/${category.categoryName._id}`,formData);
+        if (updatedCategory.data.message) {
+          // Reset form data to clear the input values
+          setFormData({
+            categoryName: "",
+          });
+          setCategory({
+            categoryName: ""
+          })
+
+          return ( Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Company added successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          }))
+        }else {
+          return Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Faild to update!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      }
       const register = await axiosPublic.post(
-        "company/register-company",
+        "category/add",
         formData
       );
-      if (register.data.message === "Company registerd succussfully!") {
+      if (register.data.message) {
         // Reset form data to clear the input values
         setFormData({
-          companyName: "",
-          group: "",
+          categoryName: "",
         });
         Swal.fire({
           position: "top-end",
@@ -81,11 +109,6 @@ const Companys = () => {
         });
       }
     } catch (error) {
-      // Reset form data to clear the input values
-      setFormData({
-        companyName: "",
-        group: "",
-      });
       Swal.fire({
         position: "top-end",
         icon: "error",
@@ -96,6 +119,14 @@ const Companys = () => {
     }
   };
 
+  const handleUpdate = async (id) => { 
+      const category = await axiosPrivet.get(`category?id=${id}`).then(res => res.data.data[0]);
+      setCategory({categoryName: category})
+      setIsShow(true)
+      setFormData({categoryName: category.categoryName})
+      // console.log(category)
+   }
+
   return (
     <>
       {!isShow && (
@@ -104,7 +135,7 @@ const Companys = () => {
             onClick={() => setIsShow(true)}
             className="btn btn-md btn-primary"
           >
-            Add Company
+            Add Category
           </button>
         </div>
       )}
@@ -115,40 +146,22 @@ const Companys = () => {
             className="lg:w-1/3 md:w-2/3 w-full flex flex-col gap-4 mx-auto border p-5 rounded-lg my-5 bg-gray-100 shadow-xl"
             onSubmit={handleSubmit}
           >
-            <h4 className="text-center text-2xl font-bold">Company Add Form</h4>
+            <h4 className="text-center text-2xl font-bold">Category Add Form</h4>
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="name"
                 className="text-lg font-medium text-gray-600"
               >
-                Company Name
+                Category Name
               </label>
               <input
                 type="text"
                 name="name"
-                value={formData.companyName} // Fixed value attribute to show form state
+                value={formData.categoryName} // Fixed value attribute to show form state
                 onChange={(e) =>
-                  setFormData({ ...formData, companyName: e.target.value })
+                  setFormData({ ...formData, categoryName: e.target.value })
                 }
-                placeholder="Enter Company Name"
-                className="border rounded-md py-1 px-3 border-gray-600"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="group"
-                className="text-gray-600 text-lg font-medium"
-              >
-                Group Name
-              </label>
-              <input
-                type="text"
-                name="group"
-                value={formData.group} // Fixed value attribute to show form state
-                onChange={(e) =>
-                  setFormData({ ...formData, group: e.target.value })
-                }
-                placeholder="Enter Group Name"
+                placeholder="Enter Category Name"
                 className="border rounded-md py-1 px-3 border-gray-600"
               />
             </div>
@@ -166,25 +179,23 @@ const Companys = () => {
           <thead>
             <tr>
               <th></th>
-              <th>Company Name</th>
-              <th>Group</th>
+              <th>Category Name</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {companys?.map((company, index) => (
-              <tr key={company?._id}>
+            {categorys?.map((category, index) => (
+              <tr key={category?._id}>
                 <th>{index + 1}</th>
-                <td>{company?.companyName?.toUpperCase()}</td>
-                <td>{company?.group?.toUpperCase()}</td>{" "}
+                <td>{category?.categoryName?.toUpperCase()}</td>
                 {/* Fixed 'groupe' to 'group' */}
                 <td>
-                  <button className="btn btn-sm text-black btn-accent">
+                  <button onClick={() => handleUpdate(category._id)} className="btn btn-sm text-black btn-accent">
                     <AiFillEdit className="text-white text-base md:text-xl" />
                   </button>{" "}
                   <button className="btn btn-sm btn-warning">
                     <AiFillDelete
-                      onClick={() => handleDelete(company._id)}
+                      onClick={() => handleDelete(category._id)}
                       className="text-purple-900 text-base md:text-xl"
                     />
                   </button>
@@ -198,4 +209,4 @@ const Companys = () => {
   );
 };
 
-export default Companys;
+export default Categorys;
