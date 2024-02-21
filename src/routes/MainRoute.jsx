@@ -4,6 +4,7 @@ import Error from '../pages/Error/Error';
 import Home from '../pages/home/Home';
 import Companys from '../pages/Companys/Companys';
 import Categorys from '../pages/Categorys/Categorys';
+import Products from '../pages/Products/Products';
 
 const MainRoute = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const MainRoute = createBrowserRouter([
             {
                 path:'/categorys',
                 element: <Categorys/>
+            },
+            {
+                path: '/products',
+                element: <Products/>
             }
         ]
 

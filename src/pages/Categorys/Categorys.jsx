@@ -133,7 +133,7 @@ const Categorys = () => {
         <div className="px-5 my-5">
           <button
             onClick={() => setIsShow(true)}
-            className="btn btn-md btn-primary"
+            className="btn btn-sm btn-primary"
           >
             Add Category
           </button>
