@@ -9,14 +9,15 @@ const Categorys = () => {
   const axiosPrivet = useAxiosPrivet();
   const [categorys, setCategorys] = useState();
   const [isShow, setIsShow] = useState(false);
-  const [category, setCategory] = useState({categoryName: ''});
+  const [category, setCategory] = useState({ categoryName: "" });
+  const [isCategoryShow, setcategoryShow] = useState(false);
   const [formData, setFormData] = useState({
     categoryName: "",
   });
 
   useEffect(() => {
     axiosPublic.get("category").then((res) => setCategorys(res.data.data));
-  }, [axiosPublic,axiosPrivet, categorys]);
+  }, [axiosPublic, axiosPrivet, categorys]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -54,34 +55,38 @@ const Categorys = () => {
     e.preventDefault();
     // Access form data from 'formData' state
     try {
-      if (formData.categoryName === "" )
-      { return  Swal.fire({
+      if (formData.categoryName === "") {
+        return Swal.fire({
           position: "top-end",
           icon: "error",
           title: "Category name and group must input!",
           showConfirmButton: false,
           timer: 1500,
-        });}
-        // console.log("in try block", category.categoryName._id)
-      if(category) {
-        const updatedCategory = await axiosPrivet.patch(`category/update/${category.categoryName._id}`,formData);
+        });
+      }
+      // console.log("in try block", category.categoryName._id)
+      if (isCategoryShow) {
+        const updatedCategory = await axiosPrivet.patch(
+          `category/update/${category.categoryName._id}`,
+          formData
+        );
         if (updatedCategory.data.message) {
           // Reset form data to clear the input values
           setFormData({
             categoryName: "",
           });
           setCategory({
-            categoryName: ""
-          })
+            categoryName: "",
+          });
 
-          return ( Swal.fire({
+          return Swal.fire({
             position: "top-end",
             icon: "success",
             title: "Company added successfully!",
             showConfirmButton: false,
             timer: 1500,
-          }))
-        }else {
+          });
+        } else {
           return Swal.fire({
             position: "top-end",
             icon: "error",
@@ -91,10 +96,7 @@ const Categorys = () => {
           });
         }
       }
-      const register = await axiosPublic.post(
-        "category/add",
-        formData
-      );
+      const register = await axiosPublic.post("category/add", formData);
       if (register.data.message) {
         // Reset form data to clear the input values
         setFormData({
@@ -119,13 +121,16 @@ const Categorys = () => {
     }
   };
 
-  const handleUpdate = async (id) => { 
-      const category = await axiosPrivet.get(`category?id=${id}`).then(res => res.data.data[0]);
-      setCategory({categoryName: category})
-      setIsShow(true)
-      setFormData({categoryName: category.categoryName})
-      // console.log(category)
-   }
+  const handleUpdate = async (id) => {
+    setcategoryShow(true);
+    const category = await axiosPrivet
+      .get(`category?id=${id}`)
+      .then((res) => res.data.data[0]);
+    setCategory({ categoryName: category });
+    setIsShow(true);
+    setFormData({ categoryName: category.categoryName });
+    // console.log(category)
+  };
 
   return (
     <>
@@ -146,7 +151,9 @@ const Categorys = () => {
             className="lg:w-1/3 md:w-2/3 w-full flex flex-col gap-4 mx-auto border p-5 rounded-lg my-5 bg-gray-100 shadow-xl"
             onSubmit={handleSubmit}
           >
-            <h4 className="text-center text-2xl font-bold">Category Add Form</h4>
+            <h4 className="text-center text-2xl font-bold">
+              Category Add Form
+            </h4>
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="name"
@@ -190,7 +197,10 @@ const Categorys = () => {
                 <td>{category?.categoryName?.toUpperCase()}</td>
                 {/* Fixed 'groupe' to 'group' */}
                 <td>
-                  <button onClick={() => handleUpdate(category._id)} className="btn btn-sm text-black btn-accent">
+                  <button
+                    onClick={() => handleUpdate(category._id)}
+                    className="btn btn-sm text-black btn-accent"
+                  >
                     <AiFillEdit className="text-white text-base md:text-xl" />
                   </button>{" "}
                   <button className="btn btn-sm btn-warning">

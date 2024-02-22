@@ -159,7 +159,7 @@ const Products = () => {
   const handleUpdate = async (id) => { 
     setupdateProduct(null)
     const product = await axiosPrivet.get(`product?id=${id}`).then(res => res.data.data[0]);
-    console.log(product)
+    // console.log(product)
     setupdateProduct(product)
     // const productT = await axiosPrivet.get(`product?id=${id}`).then(res => res.data.data);
     // console.log(updateProduct)
@@ -176,6 +176,7 @@ const Products = () => {
     // console.log(category)
  }
 
+ const skal = [1,2,3]
   return (
     <div className="px-5 py-5">
       {!isShow && (
@@ -184,7 +185,7 @@ const Products = () => {
             onClick={() => setIsShow(true)}
             className="btn btn-sm btn-primary"
           >
-            Add Company
+            Add
           </button>
         </div>
       )}
@@ -329,7 +330,13 @@ const Products = () => {
         </form>
       )}
       <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-5">
-        {products?.map((product) => (
+        {
+          !products ? (skal.map((_,index) => <div key={index} className="flex flex-col gap-4 w-52">
+          <div className="skeleton h-32 w-full"></div>
+          <div className="skeleton h-4 w-28"></div>
+          <div className="skeleton h-4 w-full"></div>
+          <div className="skeleton h-4 w-full"></div>
+        </div>)) : (products?.map((product) => (
           <div key={product._id} className="card bg-base-100 shadow-xl">
             {/* <figure>
               <img src={product.photo} alt={product.productName} />
@@ -349,7 +356,9 @@ const Products = () => {
                 <button onClick={()=>handleDelete(product._id)} className="btn btn-warning btn-sm">Delete</button>
             </div>
           </div>
-        ))}
+        )))
+        }
+
       </div>
     </div>
   );
