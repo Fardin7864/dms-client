@@ -132,6 +132,8 @@ const Categorys = () => {
     // console.log(category)
   };
 
+  const skal = [1, 2, 3, 4];
+
   return (
     <>
       {!isShow && (
@@ -191,27 +193,33 @@ const Categorys = () => {
             </tr>
           </thead>
           <tbody>
-            {categorys?.map((category, index) => (
-              <tr key={category?._id}>
-                <th>{index + 1}</th>
-                <td>{category?.categoryName?.toUpperCase()}</td>
-                {/* Fixed 'groupe' to 'group' */}
-                <td>
-                  <button
-                    onClick={() => handleUpdate(category._id)}
-                    className="btn btn-sm text-black btn-accent"
-                  >
-                    <AiFillEdit className="text-white text-base md:text-xl" />
-                  </button>{" "}
-                  <button className="btn btn-sm btn-warning">
-                    <AiFillDelete
-                      onClick={() => handleDelete(category._id)}
-                      className="text-purple-900 text-base md:text-xl"
-                    />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {!categorys ? (
+              <div className=" w-[60vw] mt-20 mx-auto flex justify-center items-center">
+                <span className="loading loading-spinner text-error"></span>
+              </div>
+            ) : (
+              categorys?.map((category, index) => (
+                <tr key={category?._id}>
+                  <th>{index + 1}</th>
+                  <td>{category?.categoryName?.toUpperCase()}</td>
+                  {/* Fixed 'groupe' to 'group' */}
+                  <td>
+                    <button
+                      onClick={() => handleUpdate(category._id)}
+                      className="btn btn-sm text-black btn-accent"
+                    >
+                      <AiFillEdit className="text-white text-base md:text-xl" />
+                    </button>{" "}
+                    <button className="btn btn-sm btn-warning">
+                      <AiFillDelete
+                        onClick={() => handleDelete(category._id)}
+                        className="text-purple-900 text-base md:text-xl"
+                      />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
